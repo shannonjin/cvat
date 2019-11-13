@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { Task } from './models/task'
-import { Observable, throwError as observableThrowError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
+import { Task } from './models/task/task';
+import { AnnotationFormat } from './models/annotation-formats/annotation-format';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, mergeMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 export class DashboardService {
 
   private tasksUrl=environment.apiUrl+'api/v1/tasks';
+  private annotationFormatsUrl=environment.apiUrl+'api/v1/server/annotation/formats';
 
   httpOptions={
     headers: new HttpHeaders({
@@ -32,7 +33,6 @@ return this.http.get(environment.apiUrl+'dashboard/meta').subscribe(response => 
   constructor(private http: HttpClient) { }
 
   getTasks(): Observable<Task[]>{
-
     return this.http.get<Task[]>(this.tasksUrl, this.httpOptions).pipe(
         map(response=> response['results'] as Task[]),
         catchError(this.handleError)
@@ -47,9 +47,23 @@ return this.http.get(environment.apiUrl+'dashboard/meta').subscribe(response => 
     );
   }
 
-  private handleError(res: HttpErrorResponse | any) {
-    console.error(res.error || res.body.error);
-    return observableThrowError(res.error || 'Server error');
+  getAnnotationFormats(): Observable<AnnotationFormat[]>{
+    return this.http.get(this.annotationFormatsUrl)
+    .pipe(
+      map(response => response as AnnotationFormat[]),
+      catchError(this.handleError)
+    );
+  }
+
+/* This error handler doesn't really do anything besides log to the console
+But I'll leave it here as a placeholder if someone wants to
+actually implement error handling */
+
+  private handleError(error: unknown) {
+    if(error instanceof HttpErrorResponse){
+      console.error(error.message);
+    }
+    return throwError(error);
   }
 
 
