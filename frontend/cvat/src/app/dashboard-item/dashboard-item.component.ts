@@ -1,6 +1,6 @@
 import {Component, Input, ViewChild,ViewContainerRef,ComponentFactoryResolver,
 ComponentRef, TemplateRef} from '@angular/core';
-import { Task } from '../models/task';
+import { Task } from '../models/task/task';
 import {MatDialog} from '@angular/material/dialog';
 import { environment } from '../../environments/environment';
 

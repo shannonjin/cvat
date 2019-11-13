@@ -3,7 +3,7 @@ ViewContainerRef, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TaskConfigurationModalComponent } from '../task-configuration-modal/task-configuration-modal.component';
 import { DashboardService } from '../dashboard.service';
-import { Task } from '../models/task';
+import { Task } from '../models/task/task';
 import { DashboardItemComponent } from '../dashboard-item/dashboard-item.component';
 
 @Component({
