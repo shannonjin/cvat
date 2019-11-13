@@ -3,6 +3,7 @@ ComponentRef, TemplateRef} from '@angular/core';
 import { Task } from '../models/task/task';
 import {MatDialog} from '@angular/material/dialog';
 import { environment } from '../../environments/environment';
+import { AnnotationFormat } from '../models/annotation-formats/annotation-format';
 
 export interface deleteTaskInterface{
   delete(id: number);
@@ -14,7 +15,9 @@ export interface deleteTaskInterface{
   styleUrls: ['./dashboard-item.component.css']
 })
 export class DashboardItemComponent{
-  @Input() task: Task;
+  task: Task;
+  annotationFormats: AnnotationFormat[];
+
   compInteraction: deleteTaskInterface;
   imgUrl = environment.apiUrl+"api/v1/tasks/";
 

@@ -5,6 +5,8 @@ import { TaskConfigurationModalComponent } from '../task-configuration-modal/tas
 import { DashboardService } from '../dashboard.service';
 import { Task } from '../models/task/task';
 import { DashboardItemComponent } from '../dashboard-item/dashboard-item.component';
+import { AnnotationFormat } from '../models/annotation-formats/annotation-format';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,16 +24,22 @@ export class DashboardComponent implements OnInit {
   private CFR: ComponentFactoryResolver) { }
 
   ngOnInit() {
-    this.dashboardService.getTasks().subscribe((tasks)=>{
-      for(let task of tasks){
+
+    forkJoin(
+      this.dashboardService.getAnnotationFormats(),
+      this.dashboardService.getTasks(),
+    ).subscribe( results=>{
+      for(let task of results[1]){
         const componentFactory=this.CFR.resolveComponentFactory(DashboardItemComponent);
         const componentRef=this.vc.createComponent(componentFactory);
         componentRef.instance.task=task;
+        componentRef.instance.annotationFormats=results[0];
         componentRef.instance.compInteraction=this;
         this.taskRef.push(componentRef);
       }
-    });
-  }
+    }
+  );
+}
 
   dashboardCreateTaskButton() {
   /*  const dialogConfig = new MatDialogConfig();
