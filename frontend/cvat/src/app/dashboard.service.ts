@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Task } from './models/task/task';
 import { AnnotationFormat } from './models/annotation-formats/annotation-format';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map, mergeMap} from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
