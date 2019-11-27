@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Task } from './models/task/task';
 import { AnnotationFormat } from './models/annotation-formats/annotation-format';
@@ -14,13 +14,6 @@ export class DashboardService {
   private tasksUrl=environment.apiUrl+'api/v1/tasks';
   private annotationFormatsUrl=environment.apiUrl+'api/v1/server/annotation/formats';
 
-  httpOptions={
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization' : 'Basic' +btoa(sessionStorage.getItem('username')+':'+sessionStorage.getItem('password'))
-    })
-  }
-
 /*
 return this.http.get(environment.apiUrl+'dashboard/meta').subscribe(response => {
      console.log(response['base_url']);
@@ -29,11 +22,10 @@ return this.http.get(environment.apiUrl+'dashboard/meta').subscribe(response => 
 });
 */
 
-
   constructor(private http: HttpClient) { }
 
   getTasks(): Observable<Task[]>{
-    return this.http.get<Task[]>(this.tasksUrl, this.httpOptions).pipe(
+    return this.http.get<Task[]>(this.tasksUrl).pipe(
         map(response=> response['results'] as Task[]),
         catchError(this.handleError)
     );

@@ -8,31 +8,19 @@
   <div class="dashboardTitleWrapper">
     <label class="regular selectable"> {{task.status}} </label>
   </div>
-  <div class="dashboardTaskIntro" [style.background-image]="'url('+imgUrl+task.id+'/frames/0)'">
+  <div class="dashboardTaskIntro" [style.background-image]="'url('+apiUrl+task.id+'/frames/0)'">
   </div>
 
   <div class="dashboardButtonsUI">
-    <select class="regular dashboardButtonUI" style="text-align-last: center;">
-      Dump Annotation
-    <option selected="" disabled=""> Dump Annotation </option>
-    <option class="bold">CVAT XML 1.1 for images</option>
-    <option>CVAT XML 1.1 for videos</option>
-    <option>PASCAL VOC ZIP 1.0</option>
-    <option>YOLO ZIP 1.0</option>
-    <option>COCO JSON 1.0</option>
-    <option>MASK ZIP 1.0</option>
-    <option>TFRecord ZIP 1.0</option>
-  </select>
 
-  <select class="regular dashboardButtonUI" style="text-align-last: center;">
-    Upload Annotation <option selected="" disabled="">
-      Upload Annotation </option>
-      <option>CVAT XML 1.1</option>
-      <option>PASCAL VOC ZIP 1.0</option>
-      <option>YOLO ZIP 1.0</option>
-      <option>COCO JSON 1.0</option>
-      <option>TFRecord ZIP 1.0</option>
-    </select>
+
+  <ng-select  class="regular dashboardButtonUI" style="text-align-last: center;" [items]="dumpers"
+  bindLabel="display_name" placeholder="Dump Annotation" [(ngModel)]="selectedDump" (change)="dump(selectedDump)">
+  </ng-select>
+
+  <ng-select  class="regular dashboardButtonUI" style="text-align-last: center;" [items]="annotationFormats"
+  bindLabel="dumpers" placeholder="Upload Annotation" [(ngModel)]="selectedUpload" (change)="upload(selectedUpload)">
+  </ng-select>
 
     <button class="regular dashboardButtonUI"> Update Task </button>
     <button (click)="openDeleteModal(deleteModalTemplate)" class="regular dashboardButtonUI"> Delete Task </button>

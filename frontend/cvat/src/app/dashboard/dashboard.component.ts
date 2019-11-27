@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild('taskView', {static: true, read: ViewContainerRef}) vc: ViewContainerRef;
   title='CVAT Dashboard';
   metaData: Object; //SHOULD THIS BE PRIVATE?
-  taskRef=[];
+  taskRef: ComponentRef<any>[]=[];
 
   constructor(private matDialog: MatDialog, private dashboardService: DashboardService,
   private CFR: ComponentFactoryResolver) { }
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
       (val) => {
 
         try{
-          let componentRef = this.taskRef.find(x => x.instance.task.id == id);
+          let componentRef = this.taskRef.find(x => x.instance.task.id === id);
           this.taskRef=this.taskRef.filter(x=>x.instance.task.id!=id);
           componentRef.destroy();
 
