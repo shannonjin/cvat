@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { environment } from '../../environments/environment';
 import { AnnotationFormat } from '../models/annotation-formats/annotation-format';
 import { Dumper } from '../models/annotation-formats/dumper';
+import { Loader } from '../models/annotation-formats/loader';
 import { DashboardItemService } from '../dashboard-item.service';
 
 export interface deleteTaskInterface{
@@ -20,6 +21,7 @@ export class DashboardItemComponent{
   task: Task;
   annotationFormats: AnnotationFormat[];
   dumpers: Dumper[]=[];
+  loaders: Loader[]=[];
 
   compInteraction: deleteTaskInterface;
   apiUrl = environment.apiUrl+"api/v1/tasks/";
@@ -33,7 +35,12 @@ export class DashboardItemComponent{
       for(let dumper of format.dumpers){
         this.dumpers.push(dumper);
       }
+      for(let loader of format.loaders){
+        this.loaders.push(loader);
+      }
     }
+
+
 
   }
 
@@ -53,24 +60,7 @@ export class DashboardItemComponent{
       console.log(this.task.id);
       console.log(selectedDump.display_name);
       this.dashboardItemService.getDump(this.task.id,this.task.name, selectedDump.display_name)
-
-
-      .subscribe(
-        suc => {
-            console.log(suc);
-        },
-        err => {
-            console.log("dope");
-            console.log(err );
-        }
-      );
-
-      /* These lines are taken straight from CVAT source Code
-         ALMOST verbatim. ALMOST. */
-    /*  taskName = taskName.replace(/\//g, '_');
-      const name = encodeURIComponent(`${tid}_${taskName}`);
-      const dumpUrl=`${this.apiUrl}${this.task.id}/annotations/${name}?format=${n}`; */
-
+      .subscribe();
     }
   }
 

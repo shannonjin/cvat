@@ -18,8 +18,8 @@
   bindLabel="display_name" placeholder="Dump Annotation" [(ngModel)]="selectedDump" (change)="dump(selectedDump)">
   </ng-select>
 
-  <ng-select  class="regular dashboardButtonUI" style="text-align-last: center;" [items]="annotationFormats"
-  bindLabel="dumpers" placeholder="Upload Annotation" [(ngModel)]="selectedUpload" (change)="upload(selectedUpload)">
+  <ng-select  class="regular dashboardButtonUI" style="text-align-last: center;" [items]="loaders"
+  bindLabel="display_name" placeholder="Upload Annotation" [(ngModel)]="selectedUpload" (change)="upload(selectedUpload)">
   </ng-select>
 
     <button class="regular dashboardButtonUI"> Update Task </button>

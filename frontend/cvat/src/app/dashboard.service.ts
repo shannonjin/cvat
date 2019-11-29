@@ -25,8 +25,8 @@ return this.http.get(environment.apiUrl+'dashboard/meta').subscribe(response => 
   constructor(private http: HttpClient) { }
 
   getTasks(): Observable<Task[]>{
-    return this.http.get<Task[]>(this.tasksUrl).pipe(
-        map(response=> response['results'] as Task[]),
+    return this.http.get<{ results: Task[]; }>(this.tasksUrl).pipe(
+        map(response=> response.results),
         catchError(this.handleError)
     );
   }

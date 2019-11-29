@@ -23,11 +23,9 @@ export class DashboardItemService {
   getDump(tid, taskName, formatName){
 
     taskName = taskName.replace(/\//g, '_');
-    //const url = environment.apiUrl+`/api/v1/tasks/${tid}/annotations/${taskName}`;
-    const url="sdnsn";
-    let queryString = `format=${formatName}`;
+    const url = environment.apiUrl+`/api/v1/tasks/${tid}/annotations/${taskName}`;
 
-    console.log(`${url}?${queryString}`);
+    let queryString = `format=${formatName}`;
 
     return this.http.get(`${url}?${queryString}`, {observe: 'response', responseType:'text'})
     .pipe(
@@ -37,8 +35,6 @@ export class DashboardItemService {
            throw response;
         }
         else{
-         console.log("wahtao");
-         console.log(response.status);
          queryString = `${queryString}&action=download`;
          this.document.location.href=`${url}?${queryString}`;
         }
@@ -46,7 +42,6 @@ export class DashboardItemService {
       }),
       retryWhen( obs => { return obs.pipe(
         concatMap((error, index) =>{
-          console.log("hyolyn");
           if(error.status !== 202){
             console.log(error.status);
             return throwError(error);
@@ -58,7 +53,7 @@ export class DashboardItemService {
             )
         })
       )}),
-      catchError(this.handleError)
+      catchError(this.handleError("Can not dump annotations for the task."))
     );
   }
 
@@ -67,13 +62,14 @@ export class DashboardItemService {
   }
 
 
-  private handleError(error: unknown, message: string ="") {
-    console.log(message);
-    console.log("eye");
-    if(error instanceof HttpErrorResponse){
-      console.error(error.message);
-    }
-    return throwError(error);
-  }
 
+  private handleError<T>(message: string ="") {
+
+    return(error:any): Observable<T> =>{
+      message=message+` Code: ${error.status}. `
+                        + `Message: ${error.message || error.error}`;
+      //console.log(message);
+      return throwError(new Error(message));
+    }
+  }
 }
