@@ -22,8 +22,11 @@
   bindLabel="display_name" placeholder="Upload Annotation" [(ngModel)]="selectedUpload" (change)="upload(selectedUpload)">
   </ng-select>
 
-    <button class="regular dashboardButtonUI"> Update Task </button>
-    <button (click)="openDeleteModal(deleteModalTemplate)" class="regular dashboardButtonUI"> Delete Task </button>
+  <input hidden type="file" #uploader (change)="onFileChange($event.target.files)" name="uploader" accept="{{'.'+ selectedLoader?.format}}"/>
+
+    <button class="regular dashboardButtonUI" (click)="openModal(updateModalTemplate)"> Update Task </button>
+
+    <button (click)="openModal(deleteModalTemplate)" class="regular dashboardButtonUI"> Delete Task </button>
 
     <ng-template #deleteModalTemplate>
         <label class="regular templateMessage selectable">The task will be removed. Are you sure?</label>
@@ -32,6 +35,19 @@
           <button mat-button mat-dialog-close class="regular h2 templateDisagreeButton" style="margin-top: 20px; margin: 30px" > Cancel </button>
           <button (click)="delete(task.id)" mat-button mat-dialog-close class="regular h2 templateAgreeButton" style="margin-top: 20px; margin: 30px;"> Ok </button>
           </div>
+    </ng-template>
+
+    <ng-template #updateModalTemplate>
+
+      <div style="display: flex; flex-direction: column"> <!-- Consider using Angular flex layout-->
+      <input id="dashboardOldLabels" type="text" readonly=true class="regular h2">
+      <input id="dashboardNewLabels" type="text" placeholder="expand the specification here" class="regular h2" >
+      </div>
+          <div style="text-align: center;">
+          <button mat-button mat-dialog-close class="regular h2 templateDisagreeButton" style="margin-top: 20px; margin: 30px" > Cancel </button>
+          <button (click)="delete(task.id)" mat-button mat-dialog-close class="regular h2 templateAgreeButton" style="margin-top: 20px; margin: 30px;"> Update </button>
+          </div>
+
     </ng-template>
 
   </div>
