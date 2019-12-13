@@ -1,11 +1,12 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
 import { Observable, throwError, of, iif} from 'rxjs';
 import { catchError, map, retryWhen, filter, concatMap, delay, flatMap } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 import { Loader } from './models/annotation-formats/loader';
+import { Task }  from './models/task/task';
 
 
 @Injectable({
@@ -13,6 +14,10 @@ import { Loader } from './models/annotation-formats/loader';
 })
 export class DashboardItemService {
 
+  httpOptions={
+     responseType: 'text',
+     observe: 'response'
+ };
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) { }
 
@@ -23,7 +28,7 @@ export class DashboardItemService {
 
     let queryString = `format=${formatName}`;
 
-    return this.http.get(`${url}?${queryString}`, {observe: 'response', responseType:'text'})
+    return this.http.get(`${url}?${queryString}`, {headers: this.httpOptions})
     .pipe(
       map((response: HttpResponse<any>)=> {
 
@@ -60,7 +65,7 @@ export class DashboardItemService {
     let annotationData = new FormData();
     annotationData.append('annotation_file', fileToUpload);
 
-    return this.http.put(url, annotationData, {observe: 'response', responseType:'text'})
+    return this.http.put(url, annotationData, {headers: this.httpOptions})
     .pipe(
       map((response: HttpResponse<any>)=> {
          if(response.status===202){
@@ -84,6 +89,30 @@ export class DashboardItemService {
     );
   }
 
+  //see async function saveTask in cvat-core.min.js
+  saveTask(task: Task){
+
+    const url=environment.apiUrl+`/api/v1/tasks/${task.id}`;
+    let headers=new HttpHeaders();
+    headers=headers.set('Content-Type', 'application/json');
+
+   for(let key of Object.keys(this.httpOptions)){
+      let item=this.httpOptions[key];
+      headers.append(item);
+    }
+
+    const t={
+      name:task.name,
+      bug_tracker:task.bugTracker,
+      z_order:task.zOrder,
+      labels:task.labels
+    };
+
+    return this.http.patch(url, JSON.stringify(t), {headers: headers})
+    .pipe(
+        catchError(this.handleError(`Could not save the task on the server.`))
+    );
+  }
 
 
   private handleError<T>(message: string ="") {

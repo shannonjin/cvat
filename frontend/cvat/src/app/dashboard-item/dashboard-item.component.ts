@@ -1,12 +1,15 @@
 import {Component, Input, ViewChild,ViewContainerRef,ComponentFactoryResolver,
 ComponentRef, TemplateRef, OnInit, ElementRef} from '@angular/core';
 import { Task } from '../models/task/task';
+import { Label } from '../models/task/label';
 import {MatDialog} from '@angular/material/dialog';
 import { environment } from '../../environments/environment';
 import { AnnotationFormat } from '../models/annotation-formats/annotation-format';
 import { Dumper } from '../models/annotation-formats/dumper';
 import { Loader } from '../models/annotation-formats/loader';
 import { DashboardItemService } from '../dashboard-item.service';
+import { LabelsInfoService } from '../labels-info.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface deleteTaskInterface{
   delete(id: number);
@@ -21,10 +24,14 @@ export class DashboardItemComponent{
   task: Task;
   annotationFormats: AnnotationFormat[];
   dumpers: Dumper[]=[];
+  oldLabels: string;
 
   loaders: Loader[]=[];
   selectedLoader: Loader=null;
   fileToUpload: File = null;
+
+  message: string;
+  @ViewChild('messageTemplate', {static: false}) messageTemplate: ElementRef;
 
   @ViewChild('uploader', {static: false}) uploader: ElementRef;
 
@@ -43,6 +50,7 @@ export class DashboardItemComponent{
       for(let loader of format.loaders){
         this.loaders.push(loader);
       }
+
     }
   }
 
@@ -53,10 +61,36 @@ export class DashboardItemComponent{
     });
   }
 
+  getOldLabels(){
+    this.oldLabels=LabelsInfoService.serialize(this.task.labels);
+  }
 
   delete(id: number){
     this.compInteraction.delete(id);
   }
+
+
+  update(newLabel: string){
+
+    const labels = LabelsInfoService.deserialize(newLabel);
+    labels.forEach(item => this.task.labels.push(item));
+
+    this.dashboardItemService.saveTask(this.task)
+    .subscribe(
+      x =>{},
+      err => {
+        this.message=err;
+        if(err instanceof HttpErrorResponse && !(err.error instanceof ErrorEvent)){
+          message += ` Code: ${err.status}`;
+        }
+      },
+      () =>{ this.message='Task has been successfully updated';}
+    );
+
+
+    this.openModal(this.messageTemplate);
+  }
+
 
   dump(selectedDump: Dumper){
     if(selectedDump!=null){
@@ -79,8 +113,6 @@ export class DashboardItemComponent{
     //this.fileToUpload = event.target.files;
     this.fileToUpload = files.item(0);
     this.dashboardItemService.putUpload( this.task.id, this.fileToUpload, this.selectedLoader).subscribe();
-
-    //console.log(event);
   }
 
 

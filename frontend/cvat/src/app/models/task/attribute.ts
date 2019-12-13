@@ -3,6 +3,6 @@ export interface Attribute{
   name: string;
   mutable: boolean;
   input_type: "checkbox"| "radio"| "number"| "text"| "select"
-  default_value: string;
-  values: string;
+  default_value: string | number | boolean ; //see cvat source code
+  values: string[] | number[] | boolean[] ; //see cvat source code
 }
