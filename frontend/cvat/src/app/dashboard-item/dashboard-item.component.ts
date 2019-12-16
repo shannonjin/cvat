@@ -31,7 +31,7 @@ export class DashboardItemComponent{
   fileToUpload: File = null;
 
   message: string;
-  @ViewChild('messageTemplate', {static: false}) messageTemplate: ElementRef;
+  @ViewChild('messageTemplate', {read: TemplateRef, static:false}) messageTemplate: TemplateRef<any>;
 
   @ViewChild('uploader', {static: false}) uploader: ElementRef;
 
@@ -81,7 +81,7 @@ export class DashboardItemComponent{
       err => {
         this.message=err;
         if(err instanceof HttpErrorResponse && !(err.error instanceof ErrorEvent)){
-          message += ` Code: ${err.status}`;
+          this.message += ` Code: ${err.status}`;
         }
       },
       () =>{ this.message='Task has been successfully updated';}

@@ -98,13 +98,13 @@ export class DashboardItemService {
 
    for(let key of Object.keys(this.httpOptions)){
       let item=this.httpOptions[key];
-      headers.append(item);
+      headers.append(key, item);
     }
 
     const t={
       name:task.name,
-      bug_tracker:task.bugTracker,
-      z_order:task.zOrder,
+      bug_tracker:task.bug_tracker,
+      z_order:task.z_order,
       labels:task.labels
     };
 
