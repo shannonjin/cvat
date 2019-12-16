@@ -18,3 +18,5 @@ ng serve --port 3000
 In the source folder. 
 
 Navigate to http://localhost:3000 to login, or to bypass the login page navigate to http://localhost:3000/dashboard
+
+The main branch of this repo is the angular branch.
