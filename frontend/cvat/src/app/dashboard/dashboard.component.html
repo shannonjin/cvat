@@ -53,18 +53,16 @@
     </div>
 </template>
 
-
-<template id="messageTemplate">
-    <div class="modal">
-        <div class="modal-content"  style="width: 400px; height: auto; max-height: 600px; overflow: auto;">
-            <label class="regular templateMessage selectable" style="word-break: break-word;"> </label>
-            <div style="text-align:center;">
-                <button class="regular h2 templateOKButton" style="margin-top: 20px"> Ok </button>
-            </div>
+<ng-template id="messageTemplate" #messageTemplate>
+<div class="modal">
+    <div class="modal-content"  style="width: 400px; height: auto; max-height: 600px; overflow: auto;">
+        <label class="regular templateMessage selectable" style="word-break: break-word;">{{message}} </label>
+        <div style="text-align: center;">
+            <button mat-button mat-dialog-close class="regular h2 templateOKButton" style="margin-top: 20px"> Ok </button>
         </div>
     </div>
-</template>
-
+</div>
+</ng-template>
 
 <template id="overlayTemplate">
     <div class="modal">

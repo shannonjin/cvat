@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild('taskView', {static: true, read: ViewContainerRef}) vc: ViewContainerRef;
   title='CVAT Dashboard';
   taskRef: ComponentRef<any>[]=[];
+  message: string;
 
   constructor(private matDialog: MatDialog, private dashboardService: DashboardService,
   private CFR: ComponentFactoryResolver) { }
@@ -58,6 +59,8 @@ export class DashboardComponent implements OnInit {
 
         }
         catch(e){
+          this.message="Delete encountered an error: "+e.error;
+          this.matDialog.open(this.messageTemplate);
         }
       }
     );
