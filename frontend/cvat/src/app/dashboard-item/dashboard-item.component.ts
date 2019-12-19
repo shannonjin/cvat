@@ -110,7 +110,6 @@ export class DashboardItemComponent{
   }
 
   onFileChange(files: FileList){
-    //this.fileToUpload = event.target.files;
     this.fileToUpload = files.item(0);
     this.dashboardItemService.putUpload( this.task.id, this.fileToUpload, this.selectedLoader).subscribe();
   }
