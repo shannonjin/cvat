@@ -40,20 +40,6 @@ export class DashboardItemComponent{
 
   constructor(private matDialog:MatDialog, private dashboardItemService: DashboardItemService) { }
 
-  /*No particular reason to*/
-  ngOnInit() {
-
-    for(let format of this.annotationFormats){
-      for(let dumper of format.dumpers){
-        this.dumpers.push(dumper);
-      }
-      for(let loader of format.loaders){
-        this.loaders.push(loader);
-      }
-
-    }
-  }
-
   openModal(templateRef: TemplateRef<any>){
     const dialogRef=this.matDialog.open(templateRef,
     {
