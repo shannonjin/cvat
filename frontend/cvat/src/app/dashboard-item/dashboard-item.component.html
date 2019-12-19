@@ -15,16 +15,16 @@
 
 
   <ng-select  class="regular dashboardButtonUI" style="text-align-last: center;" [items]="dumpers"
-  bindLabel="display_name" placeholder="Dump Annotation" [(ngModel)]="selectedDump" (change)="dump(selectedDump)">
+  bindLabel="display_name" placeholder="Dump Annotation" [(ngModel)]="selectedDump" (change)="dumpAnnotation(selectedDump)">
   </ng-select>
 
   <ng-select  class="regular dashboardButtonUI" style="text-align-last: center;" [items]="loaders"
-  bindLabel="display_name" placeholder="Upload Annotation" [(ngModel)]="selectedUpload" (change)="upload(selectedUpload)">
+  bindLabel="display_name" placeholder="Upload Annotation" [(ngModel)]="selectedUpload" (change)="uploadAnnotation(selectedUpload)">
   </ng-select>
 
   <input hidden type="file" #uploader (change)="onFileChange($event.target.files)" name="uploader" accept="{{'.'+ selectedLoader?.format}}"/>
 
-    <button class="regular dashboardButtonUI" (click)="[getOldLabels(), openModal(updateModalTemplate)]"> Update Task </button>
+    <button class="regular dashboardButtonUI" (click)="[getTaskOldLabels(), openModal(updateModalTemplate)]"> Update Task </button>
 
     <button (click)="openModal(deleteModalTemplate)" class="regular dashboardButtonUI"> Delete Task </button>
 
@@ -33,7 +33,7 @@
 
           <div style="text-align: center;">
           <button mat-button mat-dialog-close class="regular h2 templateDisagreeButton" style="margin-top: 20px; margin: 30px" > Cancel </button>
-          <button (click)="delete(task.id)" mat-button mat-dialog-close class="regular h2 templateAgreeButton" style="margin-top: 20px; margin: 30px;"> Ok </button>
+          <button (click)="deleteTask(task.id)" mat-button mat-dialog-close class="regular h2 templateAgreeButton" style="margin-top: 20px; margin: 30px;"> Ok </button>
           </div>
     </ng-template>
 
@@ -45,7 +45,7 @@
       </div>
           <div style="text-align: center;">
           <button mat-button mat-dialog-close class="regular h2 templateDisagreeButton" style="margin-top: 20px; margin: 30px" > Cancel </button>
-          <button (click)="update(newLabel.value)" mat-button mat-dialog-close class="regular h2 templateAgreeButton" style="margin-top: 20px; margin: 30px;"> Update </button>
+          <button (click)="updateTask(newLabel.value)" mat-button mat-dialog-close class="regular h2 templateAgreeButton" style="margin-top: 20px; margin: 30px;"> Update </button>
           </div>
 
     </ng-template>

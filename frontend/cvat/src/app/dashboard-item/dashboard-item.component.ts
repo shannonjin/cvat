@@ -40,6 +40,20 @@ export class DashboardItemComponent{
 
   constructor(private matDialog:MatDialog, private dashboardItemService: DashboardItemService) { }
 
+  ngOnInit() {
+
+    //populating the drop down menu of dump annotation menu options and upload menu options.
+    for(let format of this.annotationFormats){
+      for(let dumper of format.dumpers){
+        this.dumpers.push(dumper);
+      }
+      for(let loader of format.loaders){
+        this.loaders.push(loader);
+      }
+
+    }
+  }
+
   openModal(templateRef: TemplateRef<any>){
     const dialogRef=this.matDialog.open(templateRef,
     {
@@ -47,16 +61,16 @@ export class DashboardItemComponent{
     });
   }
 
-  getOldLabels(){
+  getTaskOldLabels(){
     this.oldLabels=LabelsInfoService.serialize(this.task.labels);
   }
 
-  delete(id: number){
+  deleteTask(id: number){
     this.compInteraction.delete(id);
   }
 
 
-  update(newLabel: string){
+  updateTask(newLabel: string){
 
     const labels = LabelsInfoService.deserialize(newLabel);
     labels.forEach(item => this.task.labels.push(item));
@@ -78,14 +92,14 @@ export class DashboardItemComponent{
   }
 
 
-  dump(selectedDump: Dumper){
+  dumpAnnotation(selectedDump: Dumper){
     if(selectedDump!=null){
       this.dashboardItemService.getDump(this.task.id,this.task.name, selectedDump.display_name)
       .subscribe();
     }
   }
 
-  upload(selectedUpload: Loader){
+  uploadAnnotation(selectedUpload: Loader){
     this.selectedLoader=selectedUpload;
 
     /*this works because setTimeout (js) puts whatever inside it
