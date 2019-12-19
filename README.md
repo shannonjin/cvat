@@ -6,11 +6,14 @@ This is an Angular version of the front end of CVAT, based on the full version t
 
 To use, download or clone the full CVAT from https://github.com/opencv/cvat following their installation instructions, and build and run as detailed in their README.
 
-Navigate to http://localhost:8080 to check to see that the "backend" (in this case the full CVAT version) is running correctly. 
+Navigate to http://localhost:8080 on google chrome to check to see that the "backend" (in this case the full CVAT version) is running correctly. 
 
-Then, to use the Angular dashboard, clone or download this repo. Install npm in the source folder. Then run 
+Then, to use the Angular dashboard
 
 ```
+git clone https://github.com/labshare/cvat
+cd cvat
+npm install
 ng serve --port 3000
 
 ```
