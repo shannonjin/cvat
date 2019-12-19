@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild('taskView', {static: true, read: ViewContainerRef}) vc: ViewContainerRef;
   title='CVAT Dashboard';
-  metaData: Object; //SHOULD THIS BE PRIVATE?
   taskRef: ComponentRef<any>[]=[];
 
   constructor(private matDialog: MatDialog, private dashboardService: DashboardService,
