@@ -14,11 +14,11 @@
   <div class="dashboardButtonsUI">
 
 
-  <ng-select  class="regular dashboardButtonUI" style="text-align-last: center;" [items]="dumpers"
+  <ng-select  class="regular dashboardButtonUI" [items]="dumpers"
   bindLabel="display_name" placeholder="Dump Annotation" [(ngModel)]="selectedDump" (change)="dumpAnnotation(selectedDump)">
   </ng-select>
 
-  <ng-select  class="regular dashboardButtonUI" style="text-align-last: center;" [items]="loaders"
+  <ng-select  class="regular dashboardButtonUI" [items]="loaders"
   bindLabel="display_name" placeholder="Upload Annotation" [(ngModel)]="selectedUpload" (change)="uploadAnnotation(selectedUpload)">
   </ng-select>
 
