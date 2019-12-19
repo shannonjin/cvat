@@ -1,4 +1,4 @@
-export interface Dumper{
+export interface Annotation{
   display_name: string;
   format: string;
   handler: string;

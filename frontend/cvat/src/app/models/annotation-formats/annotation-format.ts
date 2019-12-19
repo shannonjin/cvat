@@ -1,10 +1,10 @@
-import { Loader } from './loader';
-import { Dumper } from './dumper';
+import { Annotation } from './annotation';
+
 
 export interface AnnotationFormat{
   id: number;
-  dumpers: Dumper[];
-  loaders: Loader[];
+  dumpers: Annotation[];
+  loaders: Annotation[];
   name: string;
   created_date: string;
   updated_date: string;

@@ -5,8 +5,7 @@ import { Label } from '../models/task/label';
 import {MatDialog} from '@angular/material/dialog';
 import { environment } from '../../environments/environment';
 import { AnnotationFormat } from '../models/annotation-formats/annotation-format';
-import { Dumper } from '../models/annotation-formats/dumper';
-import { Loader } from '../models/annotation-formats/loader';
+import { Annotation} from '../models/annotation-formats/annotation';
 import { DashboardItemService } from '../dashboard-item.service';
 import { LabelsInfoService } from '../labels-info.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -23,11 +22,11 @@ export interface deleteTaskInterface{
 export class DashboardItemComponent{
   task: Task;
   annotationFormats: AnnotationFormat[];
-  dumpers: Dumper[]=[];
+  dumpers: Annotation[]=[];
   oldLabels: string;
 
-  loaders: Loader[]=[];
-  selectedLoader: Loader=null;
+  loaders: Annotation[]=[];
+  selectedLoader: Annotation=null;
   fileToUpload: File = null;
 
   message: string;
@@ -92,14 +91,14 @@ export class DashboardItemComponent{
   }
 
 
-  dumpAnnotation(selectedDump: Dumper){
+  dumpAnnotation(selectedDump: Annotation){
     if(selectedDump!=null){
       this.dashboardItemService.getDump(this.task.id,this.task.name, selectedDump.display_name)
       .subscribe();
     }
   }
 
-  uploadAnnotation(selectedUpload: Loader){
+  uploadAnnotation(selectedUpload: Annotation){
     this.selectedLoader=selectedUpload;
 
     /*this works because setTimeout (js) puts whatever inside it

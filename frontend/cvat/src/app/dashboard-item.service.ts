@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 import { Observable, throwError, of, iif} from 'rxjs';
 import { catchError, map, retryWhen, filter, concatMap, delay, flatMap } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
-import { Loader } from './models/annotation-formats/loader';
+import { Annotation } from './models/annotation-formats/annotation';
 import { Task }  from './models/task/task';
 
 
@@ -59,7 +59,7 @@ export class DashboardItemService {
   }
 
 //uploads selected annotation format the task's upload annotation drop down menu
-  putUpload(tid:number, fileToUpload: File, format: Loader){
+  putUpload(tid:number, fileToUpload: File, format: Annotation){
 
     const queryString = `format=${format.display_name}`;
     const url = environment.apiUrl+`/api/v1/tasks/${tid}/annotations?${queryString}`;
