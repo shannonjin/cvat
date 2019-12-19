@@ -21,6 +21,7 @@ export class DashboardItemService {
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) { }
 
+//downloads selected annotation format the task's dump annotation drop down menu
   getDump(tid:number, taskName:string, formatName:string){
 
     taskName = taskName.replace(/\//g, '_');
@@ -57,6 +58,7 @@ export class DashboardItemService {
     );
   }
 
+//uploads selected annotation format the task's upload annotation drop down menu
   putUpload(tid:number, fileToUpload: File, format: Loader){
 
     const queryString = `format=${format.display_name}`;
@@ -89,6 +91,9 @@ export class DashboardItemService {
     );
   }
 
+  //Called when user updates the task by clicking the update button and expands
+  //the specification in the modal that shows up
+  //Sends the updated task back to backend
   //see async function saveTask in cvat-core.min.js
   saveTask(task: Task){
 
@@ -114,7 +119,7 @@ export class DashboardItemService {
     );
   }
 
-
+//generic handleerror function for all the service methods.
   private handleError<T>(message: string ="") {
 
     return(error:any): Observable<T> =>{
