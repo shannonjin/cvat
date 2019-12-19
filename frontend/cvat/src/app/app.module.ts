@@ -13,7 +13,6 @@ import {MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ShareBrowseModalComponent } from './share-browse-modal/share-browse-modal.component';
 import { DashboardItemComponent } from './dashboard-item/dashboard-item.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -23,7 +22,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     DashboardComponent,
     TaskConfigurationModalComponent,
     LoginComponent,
-    ShareBrowseModalComponent,
     DashboardItemComponent
   ],
 
