@@ -16,7 +16,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShareBrowseModalComponent } from './share-browse-modal/share-browse-modal.component';
 import { DashboardItemComponent } from './dashboard-item/dashboard-item.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-//import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 
 @NgModule({
   declarations: [
