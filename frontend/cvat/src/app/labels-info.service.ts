@@ -15,10 +15,8 @@ export class LabelsInfoService {
         for (const label of deserialized) {
             serialized += ` ${label.name}`;
             for (const attr of label.attributes) {
-                console.log(attr);
                 serialized += ` ${attr.mutable ? '~' : '@'}`;
                 serialized += `${attr.input_type}=${attr.name}:`;
-                console.log(attr.values);
                 serialized += attr.values.join(',');
             }
         }
