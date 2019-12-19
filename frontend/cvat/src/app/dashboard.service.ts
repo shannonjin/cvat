@@ -39,10 +39,7 @@ export class DashboardService {
     );
   }
 
-/* This error handler doesn't really do anything besides log to the console
-But I'll leave it here as a placeholder if someone wants to
-actually implement error handling */
-
+//TODO: Implement more useful error handling
   private handleError(error: unknown) {
     if(error instanceof HttpErrorResponse){
       console.error(error.message);
