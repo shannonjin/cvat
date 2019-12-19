@@ -58,8 +58,6 @@ export class DashboardComponent implements OnInit {
 
         }
         catch(e){
-          console.log("destroy error");
-          console.log(e);
         }
       }
     );
