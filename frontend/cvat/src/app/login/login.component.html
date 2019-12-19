@@ -1,63 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>{{title}}</title>
-</head>
-<body>
-  <div class="login">
-    	<h1>Login</h1>
-      <small>{{response}}</small>
-      <form [formGroup] = "loginForm" (ngSubmit)="onSubmit()">
+<title>{{title}}</title>
 
-        <input type="text" formControlName="username">
-        <input type="text" formControlName="password">
-        <input type="hidden" name="csrfmiddlewaretoken" value={{cookieValue}} />
-        <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary btn-block btn-large">Login</button>
-      </form>
-	</div>
-</body>
-</html>
-<!--
-</html>
+<div class="login">
+	<h1>Login</h1>
+  <small>{{response}}</small>
+  <form [formGroup] = "loginForm" (ngSubmit)="onSubmit()">
 
-
-
-	<div class="note">
-		{% block note %} {% endblock %}
-	</div> -->
-
-  <!--
-      Copyright (C) 2018 Intel Corporation
-
-      SPDX-License-Identifier: MIT
-
-  {% extends "auth_base.html" %}
-
-  {% block title %}Login{% endblock %}
-
-  {% block content %}
-
-  	{% if form.errors %}
-  		<small>Your username and password didn't match. Please try again.</small>
-  	{% endif %}
-  	<form method="post" action="{% url 'login' %}">
-
-      <input type="text" name="username">
-      <input type="text" name="password">
-  		{% csrf_token %}
-  		{% for field in form %}
-  			{{ field }}
-  		{% endfor %}
-
-  		<input type="hidden" name="next" value="{{ next }}" />
-  		<button type="submit" class="btn btn-primary btn-block btn-large">Login</button>
-  	</form>
-  {% endblock %}
-
-  {% block note%}
-      {% autoescape off %}
-  	{{ note }}
-      {% endautoescape %}
-  {% endblock %}
-  -->
+    <input type="text" formControlName="username">
+    <input type="text" formControlName="password">
+    <input type="hidden" name="csrfmiddlewaretoken" value={{cookieValue}} />
+    <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary btn-block btn-large">Login</button>
+  </form>
+</div>
