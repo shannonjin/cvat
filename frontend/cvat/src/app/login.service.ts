@@ -33,9 +33,9 @@ export class LoginService {
 
 
   signIn(signInData: FormData): Observable<string>{
-    return this.http.post(this.loginUrl, signInData, {responseType: 'text'});
-    //.pipe(
-    //  catchError(this.handleError)
-    //);
+    return this.http.post(this.loginUrl, signInData, {responseType: 'text'})
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 }
