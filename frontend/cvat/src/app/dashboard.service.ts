@@ -14,14 +14,6 @@ export class DashboardService {
   private tasksUrl=environment.apiUrl+'api/v1/tasks';
   private annotationFormatsUrl=environment.apiUrl+'api/v1/server/annotation/formats';
 
-/*
-return this.http.get(environment.apiUrl+'dashboard/meta').subscribe(response => {
-     console.log(response['base_url']);
-}, err => {
-  console.log("User authentication failed!");
-});
-*/
-
   constructor(private http: HttpClient) { }
 
   getTasks(): Observable<Task[]>{
