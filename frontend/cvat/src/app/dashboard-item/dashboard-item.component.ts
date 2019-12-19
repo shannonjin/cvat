@@ -1,11 +1,10 @@
 import {Component, Input, ViewChild,ViewContainerRef,ComponentFactoryResolver,
 ComponentRef, TemplateRef, OnInit, ElementRef} from '@angular/core';
-import { Task } from '../models/task/task';
-import { Label } from '../models/task/label';
+import { Task, Label} from '../models/task';
 import {MatDialog} from '@angular/material/dialog';
 import { environment } from '../../environments/environment';
-import { AnnotationFormat } from '../models/annotation-formats/annotation-format';
-import { Annotation} from '../models/annotation-formats/annotation';
+import { AnnotationFormat, Annotation } from '../models/annotation-formats';
+import { } from '../models/annotation-formats/annotation';
 import { DashboardItemService } from '../dashboard-item.service';
 import { LabelsInfoService } from '../labels-info.service';
 import { HttpErrorResponse } from '@angular/common/http';
