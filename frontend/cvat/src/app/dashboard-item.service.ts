@@ -125,7 +125,6 @@ export class DashboardItemService {
     return(error:any): Observable<T> =>{
       message=message+` Code: ${error.status}. `
                         + `Message: ${error.message || error.error}`;
-      //console.log(message);
       return throwError(new Error(message));
     }
   }
