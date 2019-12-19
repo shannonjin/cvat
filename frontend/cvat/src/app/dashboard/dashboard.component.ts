@@ -41,12 +41,8 @@ export class DashboardComponent implements OnInit {
 }
 
   dashboardCreateTaskButton() {
-  /*  const dialogConfig = new MatDialogConfig();
-    this.matDialog.open(TaskConfigurationModalComponent);
-    */
     const dialogRef = this.matDialog.open(TaskConfigurationModalComponent, {
      width: '500px',
-     /*data: {name: this.name, animal: this.animal}*/
    });
   }
 
@@ -72,5 +68,5 @@ export class DashboardComponent implements OnInit {
   navigateToUserGuide(){
     window.location.href="http://localhost:8080/documentation/user_guide.html";
   }
-  
+
 }
