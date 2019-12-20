@@ -21,7 +21,20 @@ export class DashboardItemService {
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) { }
 
-//downloads selected annotation format the task's dump annotation drop down menu
+/**
+ * Downloads selected task's annotation format from backend
+ * Constructs the url and performs a get
+ * If response status is 202, will retry the get until response changes or
+ * ten tries are all used up. When the response has changed, creates a link
+ * to attempt to download the resource returned by get. Otherwise if 10 tries
+ * are used up an error will be thrown.
+ * @param tid number representing id of the task from which an annotation format is to be downloaded
+ *            from
+ * @param taskName string representing name of task from which an annotation format
+ *                  is to be downloaded from
+ * @param formatName string representing name of format to be downloaded
+ * @return      HttpResponse
+ */
   getDump(tid:number, taskName:string, formatName:string){
 
     taskName = taskName.replace(/\//g, '_');
@@ -58,7 +71,20 @@ export class DashboardItemService {
     );
   }
 
-//uploads selected annotation format the task's upload annotation drop down menu
+/**
+ * Uploads task associated selected annotation format to backend
+ * Constructs the url and performs a put
+ * If response status is 202, will retry the put until response changes or
+ * ten tries are all used up. If 10 tries are used up an error will be thrown.
+ *
+ * @param tid number representing id of the task for which an annotation format is to be put
+ * @param taskName string representing name of task from which an annotation format
+ *                  is to be downloaded from
+ * @param format annotation format, used to construct url and convey the annotation format type
+ *               of the file
+ * @param fileToUpload type File that will be passed in the put request to backend
+ * @return      HttpResponse
+ */
   putUpload(tid:number, fileToUpload: File, format: Annotation){
 
     const queryString = `format=${format.display_name}`;
@@ -91,10 +117,14 @@ export class DashboardItemService {
     );
   }
 
-  //Called when user updates the task by clicking the update button and expands
-  //the specification in the modal that shows up
-  //Sends the updated task back to backend
-  //see async function saveTask in cvat-core.min.js
+
+  /**
+   * Sends the updated task (the task after the user added more labels through the update task modal)
+   * back to backend. Performs a patch. This function is a mirror of the async function saveTask
+   * in cvat-core.min.js
+   * @param task Updated task to be patched to backend
+   * @return      HttpResponse
+   */
   saveTask(task: Task){
 
     const url=environment.apiUrl+`/api/v1/tasks/${task.id}`;
@@ -119,7 +149,11 @@ export class DashboardItemService {
     );
   }
 
-//generic handleerror function for all the service methods.
+/**
+  * generic handleerror function for all the service methods.
+  * @param message string that conveys information about the error's origins
+  * @return type Error
+*/
   private handleError<T>(message: string ="") {
 
     return(error:any): Observable<T> =>{

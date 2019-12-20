@@ -15,6 +15,13 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Catches and logs to console any errors
+   * associated with siging in
+   *
+   * @param error the error piped to handleError from the signIn method
+   * @return      throwError()
+   */
   private handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {
     // A client-side or network error occurred. Handle it accordingly.
@@ -31,7 +38,13 @@ export class LoginService {
     'Something bad happened; please try again later.');
 };
 
-
+/**
+ * Posts the sign in data (username, password, and csrf token)
+ * to backend. Catches and pipes error to handlError
+ *
+ * @param signInData FormData containing username, password and csrf token
+ * @return      type  HttpResponse
+ */
   signIn(signInData: FormData): Observable<string>{
     return this.http.post(this.loginUrl, signInData, {responseType: 'text'})
     .pipe(

@@ -26,6 +26,13 @@ export class DashboardComponent implements OnInit {
   constructor(private matDialog: MatDialog, private dashboardService: DashboardService,
   private CFR: ComponentFactoryResolver) { }
 
+  /**
+   * Uses dashboardService to retrieve metadata and
+   * task data from backend. On success components are
+   * created to display each task and it's associated information.
+   * the component references are stored in the taskRef array.
+   @return      none: return type is void
+   */
   ngOnInit() {
 
     forkJoin(
@@ -44,13 +51,29 @@ export class DashboardComponent implements OnInit {
   );
 }
 
+/**
+ * Opens an angular material dialog that contains the TaskConfigurationModalComponent
+ No parameters, no return (return type void)
+ @return      none: return type is void
+ */
   dashboardCreateTaskButton() {
     const dialogRef = this.matDialog.open(TaskConfigurationModalComponent, {
      width: '500px',
    });
   }
 
-  //tid stands for task id
+  /**
+   * Deletes task, as identified by it's id number, from dashboard and
+   * backend. Does so by calling dashboardService's deleteTask method, and
+   * passes to deleted task's id to dashboardService. On the dashboardService's
+   * success dynamically destroys the component representing the task.
+   * Otherwise catches and displays error to user by opening a material dialog.
+   *
+   * Bound to the delete button in dashboard.component.html, called when clicked.
+   *
+   * @param  id  number representing the id number of task to be deleted
+   * @return      none: return type is void
+   */
   delete(id: number){
     this.dashboardService.deleteTask(id).subscribe(
       (val) => {
@@ -69,6 +92,14 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  /**
+   * Bound to User Guide button in dashboard.component.html. Triggered
+   * when clicked. Navigates to http://localhost:8080/documentation/user_guide.html
+   * using an environment variable that represents the different port hosting
+   * the backend.
+   *
+   * @return      none: return type is void
+   */
   navigateToUserGuide(){
     window.location.href=environment.backendUrl+"/documentation/user_guide.html";
   }

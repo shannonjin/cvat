@@ -9,7 +9,13 @@ export class LabelsInfoService {
   constructor() { }
 
 
-  static serialize(deserialized: Label[]): string{//might need to make the original of this global
+  /**
+   * Converts an array of type Label to a string
+   * @param deserialized array of type label that is to be seralized
+   *                      i.e condensed into a string
+   * @return      type string
+   */
+  static serialize(deserialized: Label[]): string{
 
     let serialized = '';
         for (const label of deserialized) {
@@ -23,7 +29,15 @@ export class LabelsInfoService {
         return serialized.trim();
     }
 
-    //taken pretty much straight from cvat source code LabelsInfo.js
+
+    /**
+     * Converts a string to an array of type Label. Similar to
+     * deseralize function found in cvat backend LabelsInfo.js
+     *
+     * @param serialized string that is to be deseralized
+     *                      i.e broken into separate Labels and stored in an array
+     * @return      type  Label[]
+     */
     static deserialize(serialized: string): Label[] {
         const normalized = serialized.replace(/'+/g, '\'').replace(/\s+/g, ' ').trim();
         const fragments = LabelsInfoService.customSplit(normalized, ' ');
@@ -59,7 +73,15 @@ export class LabelsInfoService {
         return deserialized;
     }
 
-    //taken pretty much straight from cvat source code base.js
+    /**
+     * Splits a string based on passed in separator Similar to
+     * functionality found in cvat backend base.js. Returns the
+     * split string as an array
+     *
+     * @param string string that is to be split into an array
+     * @param separator what the string should be split around
+     * @return     string[]
+     */
     static customSplit(string : string, separator): string[] {
       const regex = /"/gi;
       const occurences = [];
